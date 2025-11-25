@@ -1,7 +1,8 @@
 #--------------------------------------------------------#
 # ReadMe: Prometheus Guidebook
 #--------------------------------------------------------#
-A minimal, self-contained setup for running **Prometheus + Alertmanager** using Docker.  
+
+A minimal, self-contained setup for running Prometheus + Alertmanager using Docker.  
 
 
 ----------------------------------------------------------
@@ -16,7 +17,7 @@ Prometheus-Guidebook/
 
 
 ----------------------------------------------------------
-# The Overall Workflow
+# The Overall Workflow 
 Prometheus scrapes targets according to prometheus.yml.
 Alert rules in alerts.yml evaluate those metrics.
 When an alert fires, Prometheus sends it to Alertmanager.
