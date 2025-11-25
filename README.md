@@ -6,10 +6,12 @@ A minimal, self-contained setup for running **Prometheus + Alertmanager** using 
 
 ----------------------------------------------------------
 # Repository Structure
+```
 Prometheus-Guidebook/
 ├── prometheus.yml     # main config file
 ├── alerts.yml         # alert rules
 └── alertmanager.yml   # alertmanager routing + notification config
+```
 ----------------------------------------------------------
 
 
