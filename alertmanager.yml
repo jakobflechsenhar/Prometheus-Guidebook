@@ -1,0 +1,24 @@
+#--------------------------------------------------------#
+# alertmanager.yml — Handles alert routing + notifications
+#--------------------------------------------------------#
+
+# Email server configuration
+global:
+  smtp_from: "alerts@example.com"          # Who the email appears from
+  smtp_smarthost: "smtp.gmail.com:587"     # Gmail SMTP relay
+  smtp_auth_username: "your-email@gmail.com"
+  smtp_auth_password: "your-app-password"  # Must be a Gmail App Password
+
+# Default routing behavior
+route:
+  receiver: "email-notifications"     # Where all alerts go by default
+  group_wait: 10s                     # Wait before sending initial alert group
+  group_interval: 5m                  # Minimum time between grouped alerts
+  repeat_interval: 1h                 # Re-send if still firing after 1 hour
+
+# Notification receivers
+receivers:
+  - name: "email-notifications"
+    email_configs:
+      - to: "your-email@gmail.com"
+        send_resolved: true          # Send notification when alert resolves

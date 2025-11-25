@@ -1,0 +1,35 @@
+#--------------------------------------------------------#
+# alerts.yml - the alert rules 
+#--------------------------------------------------------#
+
+# Groups organize related alerts together
+groups:
+  - name: basic-alerts
+    interval: 30s  # How often to evaluate this group of rules
+
+    rules:
+      #--------------------------------------------------#
+      # Alert: InstanceDown
+      # Fires when a scraped target stops responding.
+      #--------------------------------------------------#
+      - alert: InstanceDown
+        expr: up == 0  # PromQL expression - "up" is 0 when target is down
+        for: 1m        # Fire alert if true (i.e. target is down) for 1 minute
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} is down"
+          description: "{{ $labels.job }} target is unreachable"
+
+      #--------------------------------------------------#
+      # Alert: HighMemoryUsage
+      # Alerts if memory usage >90%.
+      #--------------------------------------------------#
+      - alert: HighMemoryUsage
+        expr: (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) > 0.9
+        for: 5m        # Fire only if high for 5 minutes
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage on {{ $labels.instance }}"
+          description: "Memory usage is above 90% (current: {{ $value | humanizePercentage }})"

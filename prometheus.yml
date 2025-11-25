@@ -1,0 +1,24 @@
+#--------------------------------------------------------#
+# prometheus.yml - the main configuration file
+#--------------------------------------------------------#
+
+# Global settings
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s  # How often to check alert rules
+
+# Where to send alerts
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ["alertmanager:9093"]  # container name:port
+
+# Where to find alert rules
+rule_files:
+  - 'alerts.yml'  # Load alerts from this file
+
+# What to monitor
+scrape_configs:
+  - job_name: 'prometheus'      # Scrape Prometheus itself
+    static_configs:
+      - targets: ['prom:9090']  # container name:port
