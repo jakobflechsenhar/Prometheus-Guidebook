@@ -1,10 +1,11 @@
 #--------------------------------------------------------#
 # ReadMe: Prometheus Guidebook
 #--------------------------------------------------------#
+
 A minimal, self-contained setup for running Prometheus + Alertmanager using Docker.  
 
 ----------------------------------------------------------
-# Repository Structure
+## Repository Structure
 ```
 Prometheus-Guidebook/
 ├── prometheus.yml     # main config file
@@ -14,23 +15,25 @@ Prometheus-Guidebook/
 ----------------------------------------------------------
 
 ----------------------------------------------------------
-# The Overall Workflow
+## The Overall Workflow
+
 Prometheus scrapes targets according to prometheus.yml.
 Alert rules in alerts.yml evaluate those metrics.
 When an alert fires, Prometheus sends it to Alertmanager.
 Alertmanager applies routing rules from alertmanager.yml.
 You receive an email notification (or Slack, etc., if configured).
+
 ----------------------------------------------------------
 
 ----------------------------------------------------------
-# Run the Stack
+## Run the Stack
 
-1. Create a Docker network for containers to communicate
+#### 1. Create a Docker network for containers to communicate
 ```bash
 docker network create my_monitoring_network
 ```
 
-2. Start Prometheus
+#### 2. Start Prometheus
 ```bash
 docker run -d \
   --name prom \                     # container name
@@ -41,7 +44,7 @@ docker run -d \
   prom/prometheus:latest            # base image
   ```
 
-3. Start AlertManager
+#### 3. Start AlertManager
 ```bash
 docker run -d \
   --name alertmanager \             # Name used by Prometheus when sending alerts
@@ -51,7 +54,7 @@ docker run -d \
   prom/alertmanager:latest
   ```
 
-4. Check Alert Status
-Prometheus UI → http://localhost:9090/alerts   # Shows which alerts are active/firing
-Alertmanager UI → http://localhost:9093        # Shows how alerts are routed/grouped
+#### 4. Check Alert Status
+- Prometheus UI → http://localhost:9090/alerts   # Shows which alerts are active/firing
+- Alertmanager UI → http://localhost:9093        # Shows how alerts are routed/grouped
 ----------------------------------------------------------
